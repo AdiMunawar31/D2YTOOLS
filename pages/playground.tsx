@@ -8,7 +8,7 @@ const playground = () => {
 		<Layout>
 			<div className='flex justify-between items-center'>
 				<Link href='/'>
-					<div className='p-3 w-20 ml-12 mt-12 rounded-full bg-gray-700 hover:bg-gray-800 flex justify-center text-gray-100 hover:scale-95 transition-all cursor-pointer'>
+					<div className='p-3 w-20 ml-8 md:ml-12 mt-12 rounded-full bg-gray-700 hover:bg-gray-800 flex justify-center text-gray-100 hover:scale-95 transition-all cursor-pointer'>
 						Back
 					</div>
 				</Link>
