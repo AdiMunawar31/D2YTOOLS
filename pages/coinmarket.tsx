@@ -1,16 +1,15 @@
-import Link from 'next/link';
 import React from 'react';
-import ApplicationList from '../components/ApplicationList';
+import CoinTable from '../components/Coin/CoinTable';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
 
-const playground = () => {
+const coinmarket = () => {
 	return (
 		<Layout>
 			<Header />
-			<ApplicationList />
+			<CoinTable />
 		</Layout>
 	);
 };
 
-export default playground;
+export default coinmarket;

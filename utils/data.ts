@@ -5,7 +5,7 @@ export const application: Application[] = [
     img: "/images/coin.jpg",
     title: "D2YCRYPTO PRICE",
     desc: "Cryptocurrency price tracker",
-    link: "/"
+    link: "/coinmarket"
   },
   {
     img: "/images/phone.png",
