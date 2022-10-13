@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import { QueryClient, useQuery } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 import { PageProps, Price } from '../../interface/type';
 import Loader from '../Loader';
 import Coin from './Coin';
@@ -23,6 +24,18 @@ const getMarket = async (page = 1) => {
 // 		props: { initialPrice },
 // 	};
 // }
+
+// SSR with hydrate
+export async function getStaticProps() {
+	const queryClient = new QueryClient();
+	await queryClient.prefetchQuery(['market', 1], () => getMarket());
+
+	return {
+		props: {
+			dehydratedState: dehydrate(queryClient),
+		},
+	};
+}
 
 const CoinTable = () => {
 	const [page, setPage] = useState(1);
