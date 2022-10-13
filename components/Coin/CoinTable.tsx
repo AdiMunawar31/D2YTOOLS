@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Price } from '../../interface/type';
+import Loader from '../Loader';
 import Coin from './Coin';
 
 const getMarket = async (page = 1) => {
@@ -24,10 +25,7 @@ const CoinTable = () => {
 		setPage((old) => old - 1);
 	};
 
-	const { data, isLoading, isFetching, isSuccess, isError } = useQuery(['market', page], () => getMarket(page), {
-		staleTime: 3000,
-		refetchInterval: 3000,
-	});
+	const { data, isLoading, isFetching, isSuccess, isError } = useQuery(['market', page], () => getMarket(page));
 
 	return (
 		<div className='min-h-screen font-sans'>
@@ -58,12 +56,12 @@ const CoinTable = () => {
 						</thead>
 						<tbody>{isSuccess && data?.map((coin: Price, i: number) => <Coin value={coin} key={i} />)}</tbody>
 					</table>
+					{isLoading || isFetching ? <Loader /> : ''}
 					{isError && (
 						<div className='h-96 flex justify-center items-center text-gray-300 font-bold'>
 							There was an error processing your request
 						</div>
 					)}
-					{isLoading}
 					<div className='px-5 py-5 bg-gray-900 flex flex-col xs:flex-row items-center xs:justify-between'>
 						<span className='text-xs xs:text-sm text-gray-300'>Showing 1 to 4 of 50 Entries</span>
 						<div className='inline-flex mt-2 xs:mt-0'>
