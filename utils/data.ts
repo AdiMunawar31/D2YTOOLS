@@ -9,9 +9,9 @@ export const application: Application[] = [
   },
   {
     img: "/images/phone.png",
-    title: "D2YPHONE FAKE",
+    title: "D2YSMS FAKE",
     desc: "Message sending fake phone",
-    link: "/"
+    link: "/fakesms"
   },
   {
     img: "/images/crypto.jpg",
