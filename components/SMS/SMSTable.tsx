@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageProps, MessageTableProps } from '../../interface/type';
+import { formatDate } from '../../utils/formatDate';
 
 const SMSTable = ({ data }: MessageTableProps) => {
 	return (
@@ -16,9 +17,9 @@ const SMSTable = ({ data }: MessageTableProps) => {
 							</tr>
 						</thead>
 						<tbody className='text-gray-300'>
-							{data?.map((message: MessageProps) => (
-								<tr className='bg-gray-800'>
-									<td className='w-1/5 text-left py-3 px-4'>{message.createdAt}</td>
+							{data?.map((message: MessageProps, i: number) => (
+								<tr className='bg-gray-800' key={i}>
+									<td className='w-1/5 text-left py-3 px-4'>{formatDate(message.createdAt)}</td>
 									<td className='w-1/4 text-left py-3 px-4'>{message.phoneNumber}</td>
 									<td className='w-1/2 text-left py-3 px-4'>{message.message}</td>
 									<td className='text-left py-3 px-4'>

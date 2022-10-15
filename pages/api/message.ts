@@ -21,7 +21,7 @@ const addMessage = (data: Message): Message[] => {
   const preData = {
     id: messages.length + 1,
     createdAt: new Date().toISOString(),
-    status: "waiting",
+    status: "success",
   };
   const objData = typeof data == "string" ? JSON.parse(data) : data;
   const finalData = { ...preData, ...objData };
