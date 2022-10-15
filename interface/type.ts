@@ -23,3 +23,15 @@ export interface Price {
 export interface PageProps {
   initialPrice: Price[];
 };
+
+export interface MessageProps {
+  id?: number;
+  createdAt: string;
+  phoneNumber: number;
+  message: string;
+  status?: string;
+};
+
+export interface MessageTableProps {
+  data: MessageProps[]
+}

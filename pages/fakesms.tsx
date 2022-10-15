@@ -1,10 +1,23 @@
 import Link from 'next/link';
 import React from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 import Layout from '../components/Layout';
 import SMSForm from '../components/SMS/SMSForm';
 import SMSTable from '../components/SMS/SMSTable';
 
+const getMessages = async () => {
+	const URL = ' http://localhost:3000/api/message';
+	const result = await fetch(URL);
+	return await result.json();
+};
+
 const fakesms = () => {
+	const queryClient = useQueryClient();
+	const { data, isSuccess } = useQuery('fakesms', getMessages, {
+		staleTime: 15000,
+		refetchInterval: 15000,
+	});
+
 	return (
 		<Layout>
 			<div className='min-h-screen'>
@@ -26,7 +39,7 @@ const fakesms = () => {
 
 				<div className='block lg:grid grid-cols-12'>
 					<SMSForm />
-					<SMSTable />
+					<SMSTable data={data} />
 				</div>
 			</div>
 		</Layout>

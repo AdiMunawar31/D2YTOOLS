@@ -1,6 +1,7 @@
 import React from 'react';
+import { MessageProps, MessageTableProps } from '../../interface/type';
 
-const SMSTable = () => {
+const SMSTable = ({ data }: MessageTableProps) => {
 	return (
 		<div className='col-span-7'>
 			<div className='py-12 font-sans pr-12 w-full rounded'>
@@ -15,16 +16,24 @@ const SMSTable = () => {
 							</tr>
 						</thead>
 						<tbody className='text-gray-300'>
-							<tr className='bg-gray-800'>
-								<td className='w-1/5 text-left py-3 px-4'>1/10/2022</td>
-								<td className='w-1/4 text-left py-3 px-4'>08125732648762</td>
-								<td className='w-1/2 text-left py-3 px-4'>
-									Saya sedang di mana mana, kirim pulsa 31jt sekarang, CEPAT!
-								</td>
-								<td className='text-left py-3 px-4'>
-									<div className='px-2 py-1 rounded text-gray-700 bg-green-400 text-xs'>SUCCESS</div>
-								</td>
-							</tr>
+							{data?.map((message: MessageProps) => (
+								<tr className='bg-gray-800'>
+									<td className='w-1/5 text-left py-3 px-4'>{message.createdAt}</td>
+									<td className='w-1/4 text-left py-3 px-4'>{message.phoneNumber}</td>
+									<td className='w-1/2 text-left py-3 px-4'>{message.message}</td>
+									<td className='text-left py-3 px-4'>
+										{message.status == 'waiting' && (
+											<div className='px-2 py-1 rounded text-gray-700 bg-yellow-400 text-xs'>WAITING</div>
+										)}
+										{message.status == 'success' && (
+											<div className='px-2 py-1 rounded text-gray-700 bg-green-400 text-xs'>SUCCESS</div>
+										)}
+										{message.status == 'failed' && (
+											<div className='px-2 py-1 rounded text-gray-700 bg-red-400 text-xs'>FAILED</div>
+										)}
+									</td>
+								</tr>
+							))}
 						</tbody>
 					</table>
 				</div>
