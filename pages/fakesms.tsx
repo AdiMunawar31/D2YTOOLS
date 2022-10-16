@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Layout from '../components/Layout';
 import SMSForm from '../components/SMS/SMSForm';
 import SMSTable from '../components/SMS/SMSTable';
@@ -33,7 +33,7 @@ const fakesms = () => {
 	const [errMessage, setErrMessage] = useState('');
 
 	const queryClient = useQueryClient();
-	const { data, isSuccess } = useQuery('fakesms', getMessages, {
+	const { data, isSuccess } = useQuery(['fakesms'], getMessages, {
 		staleTime: 15000,
 		refetchInterval: 15000,
 	});
@@ -61,22 +61,22 @@ const fakesms = () => {
 
 			// Optimistic Update :
 			// 1. cancel any outgoing refetch
-			await queryClient.cancelQueries('fakesms');
+			await queryClient.cancelQueries(['fakesms']);
 
 			// 2. snapshot the previous value
-			const previousMessages = queryClient.getQueryData<MessageProps[]>('fakesms');
+			const previousMessages = queryClient.getQueryData<MessageProps[]>(['fakesms']);
 
 			// 3. optimistically update new value
 			if (previousMessages) {
 				newMessage = { ...newMessage, createdAt: new Date().toISOString(), status: 'waiting' };
 				const finalMessages = [...previousMessages, newMessage];
-				queryClient.setQueryData('fakesms', finalMessages);
+				queryClient.setQueryData(['fakesms'], finalMessages);
 			}
 			return { previousMessages };
 		},
 		onSettled: async (data, error: any, variables, context) => {
 			if (data) {
-				await queryClient.invalidateQueries('fakesms');
+				await queryClient.invalidateQueries(['fakesms']);
 				setErrMessage('');
 				reset();
 				clearErrors();
@@ -89,7 +89,7 @@ const fakesms = () => {
 		onError: async (error: any, _variables, context: any) => {
 			setErrMessage(error.message);
 			if (context?.previousMessages) {
-				queryClient.setQueryData<MessageProps[]>('fakesms', context.previousMessages);
+				queryClient.setQueryData<MessageProps[]>(['fakesms'], context.previousMessages);
 			}
 		},
 		onSuccess: async () => {
