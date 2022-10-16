@@ -11,13 +11,13 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const getMessages = async () => {
-	const URL = ' http://localhost:3000/api/message';
+	const URL = 'https://d2ytools.vercel.app/api/message';
 	const result = await fetch(URL);
 	return await result.json();
 };
 
 const submitMessage = async (data: MessageProps) => {
-	const URL = 'http://localhost:3000/api/message';
+	const URL = 'https://d2ytools.vercel.app/api/message';
 	const response = await fetch(URL, {
 		method: 'POST',
 		body: JSON.stringify(data),
