@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { QueryClient, useQuery } from 'react-query';
-import { dehydrate } from 'react-query/hydration';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
+// import { dehydrate } from 'react-query/hydration';
 import { PageProps, Price } from '../../interface/type';
 import Loader from '../Loader';
 import Coin from './Coin';
